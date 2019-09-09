@@ -1,5 +1,3 @@
-<!--Flappy Friday-->
-
 <!--HTML-->
 <h4>Flappy Friday</h4>
 
@@ -31,7 +29,7 @@ var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
 // bird image source
 var birdImage = new Image();
-birdImage.src = "https://exumavark.github.io/flappy-friday/images/bird/4.png";
+birdImage.src = "https://github.com/exumavark/flappy-friday/blob/master/images/bird/4.png";
 
 function drawFrame(ctx) {
 	//draw the sky
@@ -43,7 +41,7 @@ function drawFrame(ctx) {
     ctx.fillRect(0,250,400,50);
     
     //bird image
-    context.drawImage(birdImage, 10, 150, 150, 150);
+    context.drawImage(birdImage, 0, 0, 150, 150);
 }
 
 drawFrame(context);
