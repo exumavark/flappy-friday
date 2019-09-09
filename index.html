@@ -1,1 +1,50 @@
-Flappy Friday
+<!--Flappy Friday-->
+
+<!--HTML-->
+<h4>Flappy Friday</h4>
+
+<canvas id="myCanvas" width="400" height="300"></canvas>
+
+<!--CSS-->
+<style> 
+h4 {
+    color: #64FF00;
+  }
+  
+  body {
+    color: #FFFFFF;
+    background-color: #7712E8;
+  }
+  
+  #myCanvas {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #00FFFF;
+  }
+</style>
+
+<!--JS-->
+<script> 
+// declare vars
+// canvas
+var canvas = document.getElementById("myCanvas");
+var context = canvas.getContext("2d");
+// bird image source
+var birdImage = new Image();
+birdImage.src = "https://exumavark.github.io/flappy-friday/images/bird/4.png";
+
+function drawFrame(ctx) {
+	//draw the sky
+	ctx.fillStyle = "#33A5FF";
+	ctx.fillRect(0,0,400,250);
+
+	//draw the ground
+	ctx.fillStyle = "#36D20C";
+    ctx.fillRect(0,250,400,50);
+    
+    //bird image
+    context.drawImage(birdImage, 10, 150, 150, 150);
+}
+
+drawFrame(context);
+</script>
