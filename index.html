@@ -1,7 +1,12 @@
-<!--HTML-->
+ <!--HTML-->
 <h4>Flappy Friday</h4>
 
 <canvas id="myCanvas" width="400" height="300"></canvas>
+
+<button id="upButton">Up</button>
+<button id="downButton">Down</button>
+
+<div id="messageLog"></div>
 
 <!--CSS-->
 <style> 
@@ -28,8 +33,31 @@ h4 {
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
 // bird image source
-var birdImage = new Image();
-birdImage.src = "https://github.com/exumavark/flappy-friday/blob/master/images/bird/4.png";
+
+//-Begin Bird------------------------------------------------------
+var bird = {};
+bird.y = 0;
+bird.frame = 0;
+bird.image3 = new Image();
+bird.image3.src = "https://exumavark.github.io/flappy-friday/images/bird/3.png";
+bird.image4 = new Image();
+bird.image4.src = "https://exumavark.github.io/flappy-friday/images/bird/4.png";
+bird.draw = function(ctx) {
+	logMessage("Drawing frame number " + bird.frame + " bird y is " + bird.y);
+	if(bird.frame % 2 == 0) {
+  	ctx.drawImage(bird.image3, 10, 150+bird.y, 150, 145);
+  } else {
+  	ctx.drawImage(bird.image4, 10, 150+bird.y, 150, 145);
+  }
+  bird.frame++;
+}
+bird.moveUp = function() {
+	bird.y -= 10;
+}
+bird.moveDown = function() {
+	bird.y += 10;
+}
+//-End Bird------------------------------------------------------
 
 function drawFrame(ctx) {
 	//draw the sky
@@ -38,11 +66,23 @@ function drawFrame(ctx) {
 
 	//draw the ground
 	ctx.fillStyle = "#36D20C";
-    ctx.fillRect(0,250,400,50);
-    
-    //bird image
-    context.drawImage(birdImage, 0, 0, 150, 150);
+	ctx.fillRect(0,250,400,50);
+  
+  //bird image
+  bird.draw(ctx);
 }
 
-drawFrame(context);
+function logMessage(message) {
+	document.getElementById("messageLog").innerHTML += (Date.now() + ": " + message + "<br />");
+}
+
+setInterval(function() { drawFrame(context); }, 200);
+
+document.getElementById("upButton").addEventListener("click", function(){
+  bird.moveUp();
+});
+
+document.getElementById("downButton").addEventListener("click", function(){
+  bird.moveDown();
+});
 </script>
