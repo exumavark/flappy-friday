@@ -1,88 +1,64 @@
  <!--HTML-->
-<h4>Flappy Friday</h4>
+ <h4>Flappy Friday</h4>
 
-<canvas id="myCanvas" width="400" height="300"></canvas>
+ <canvas id="myCanvas" width="400" height="300"></canvas>
 
-<button id="upButton">Up</button>
-<button id="downButton">Down</button>
-
-<div id="messageLog"></div>
-
-<!--CSS-->
-<style> 
-h4 {
-    color: #64FF00;
+ <div id="messageLog"></div>
+ 
+ <!--CSS-->
+ <style> 
+ h4 {
+     color: #64FF00;
+   }
+   
+   body {
+     color: #FFFFFF;
+     background-color: #7712E8;
+   }
+   
+   #myCanvas {
+     border-width: 1px;
+     border-style: solid;
+     border-color: #00FFFF;
+   }
+ </style>
+ 
+ <!--JS-->
+ <script> 
+ // declare vars
+ // canvas
+ var bird = {};
+ var canvas = document.getElementById("myCanvas");
+ var context = canvas.getContext("2d");
+ //-Begin Bird------------------------------------------------------
+ bird.draw = function(ctx) {
+        image = new Image();
+        dir = 'https://exumavark.github.io/flappy-friday/images/bird/',                         
+  setInterval(function(){
+    for (i=1;i<=9;i++) {
+        image.src = dir + i +'.png';
+        ctx.drawImage(image, 10, 150, 150, 145);         
+        logMessage("Drawing frame number " + image.src);
+        } 
+      }
+    ) 
   }
-  
-  body {
-    color: #FFFFFF;
-    background-color: #7712E8;
-  }
-  
-  #myCanvas {
-    border-width: 1px;
-    border-style: solid;
-    border-color: #00FFFF;
-  }
-</style>
-
-<!--JS-->
-<script> 
-// declare vars
-// canvas
-var canvas = document.getElementById("myCanvas");
-var context = canvas.getContext("2d");
-// bird image source
-
-//-Begin Bird------------------------------------------------------
-var bird = {};
-bird.y = 0;
-bird.frame = 0;
-bird.image3 = new Image();
-bird.image3.src = "https://exumavark.github.io/flappy-friday/images/bird/3.png";
-bird.image4 = new Image();
-bird.image4.src = "https://exumavark.github.io/flappy-friday/images/bird/4.png";
-bird.draw = function(ctx) {
-	logMessage("Drawing frame number " + bird.frame + " bird y is " + bird.y);
-	if(bird.frame % 2 == 0) {
-  	ctx.drawImage(bird.image3, 10, 150+bird.y, 150, 145);
-  } else {
-  	ctx.drawImage(bird.image4, 10, 150+bird.y, 150, 145);
-  }
-  bird.frame++;
-}
-bird.moveUp = function() {
-	bird.y -= 10;
-}
-bird.moveDown = function() {
-	bird.y += 10;
-}
-//-End Bird------------------------------------------------------
-
-function drawFrame(ctx) {
-	//draw the sky
-	ctx.fillStyle = "#33A5FF";
-	ctx.fillRect(0,0,400,250);
-
-	//draw the ground
-	ctx.fillStyle = "#36D20C";
-	ctx.fillRect(0,250,400,50);
-  
-  //bird image
-  bird.draw(ctx);
-}
-
-function logMessage(message) {
-	document.getElementById("messageLog").innerHTML += (Date.now() + ": " + message + "<br />");
-}
-
-setInterval(function() { drawFrame(context); }, 200);
-
-document.getElementById("upButton").addEventListener("click", function(){
-  bird.moveUp();
-});
-
-document.getElementById("downButton").addEventListener("click", function(){
-  bird.moveDown();
-});
+ //-End Bird------------------------------------------------------
+ function drawFrame(ctx) {
+   //draw the sky
+   ctx.fillStyle = "#33A5FF";
+   ctx.fillRect(0,0,400,250);
+   //draw the ground
+   ctx.fillStyle = "#36D20C";
+   ctx.fillRect(0,250,400,50);
+   
+   //bird image
+   bird.draw(ctx);
+ }
+ //Interval
+ setInterval(function() { drawFrame(context); }, 200);
+ //Debug message
+ function logMessage(message) {
+   document.getElementById("messageLog").innerHTML += (message + "<br />");
+ }
 </script>
